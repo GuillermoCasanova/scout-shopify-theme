@@ -1,14 +1,14 @@
 
-<div data-section-id="{{ section.id }}" data-section-type="header-section">
+<div data-section-id="{{ section.id }}" data-section-type="header" data-template="{{ template.name }}">
   <header role="banner">
     
     <div class="header__inner  flex-grid  flex-grid--center  flex-grid--justifySpaceBetween">
 
-      <div class="header__menuToggle">
+      <button class="header__menuToggle"  data-menu-toggle>
         <div class="menuToggle__icon">
           
         </div>
-      </div>
+      </button>
 
 
       <div class="header__logo">
@@ -61,8 +61,8 @@
 
     </div>
 
-
-      <nav role="navigation"  class="header__navigation">
+  
+      <nav role="navigation"  class="header__navigation  is-closed" data-off-canvas-menu>
         <div class="header__navigation__inner">
 
           <ul class="header__navigation__links">
