@@ -1,0 +1,310 @@
+
+
+/*------------------------------------*\
+    #Typography  (Extends variables/placeholders from typography abstract)
+\*------------------------------------*/
+
+/*  Base font sizes, margin-bottoms, and properties */
+
+body, html {
+  font-family: $primary-font-family; 
+  font-weight: $base-font-weight;
+  line-height: $base-font-line-height; 
+  color: $body-color; 
+  background-color: $primary-color;
+}
+
+
+// 24px magic number, all line heights and margin bottoms will be multiples of this
+// to maintain vertical and line  height rhythm 
+// Reference: http://jsfiddle.net/csswizardry/8nYqN/
+
+/* Common margin-bottom for vertical rhythm. */
+h1,h2,h3,h4,h5,h6,
+ul,ol,dl,
+fieldset,
+p,
+table,
+pre,
+hr{
+    margin-bottom: rem-calc($base-magic-number);
+}
+
+
+
+
+
+/*------------------------------------*\
+    #Default Text Selection Color 
+\*------------------------------------*/
+
+
+::selection {
+  background-color: black; 
+  color: #fff; 
+}
+
+::-moz-selection {
+
+    background-color: black; 
+    color: #fff; 
+}
+
+
+
+
+
+
+/*------------------------------------*\
+    #Header Styles and Sizes 
+\*------------------------------------*/
+
+// For text that is massive, less occurring
+.text-giga { 
+    @extend %text-giga; 
+}
+
+
+.text-mega { 
+    @extend %text-mega; 
+}
+
+
+.text-kilo { 
+    @extend %text-kilo; 
+}
+
+
+// Default font family for all headers 
+h1,h2,h3,h4,h5,h6 {
+    font-family: $primary-font-family;
+    @extend %fwn; 
+}
+
+h1, 
+.h1 { 
+  @extend %h1; 
+}
+
+h2, 
+.h2 { 
+  @extend %h2; 
+}
+
+h3, 
+.h3 { 
+  @extend %h3; 
+}
+
+h4, 
+.h4 { 
+  @extend %h4; 
+}
+
+h5, 
+.h5 { 
+  @extend %h5; 
+}
+
+h6, 
+.h6 { 
+  @extend %h6; 
+}
+
+.text-micro { 
+  @extend %text-micro; 
+}
+
+.text-mini {
+   @extend %text-mini; 
+}
+
+
+
+
+
+
+/*------------------------------------*\
+    #HR Classes
+\*------------------------------------*/
+
+$hrHeight: rem-calc(1px); 
+$hrHeightBig: .3rem; 
+
+hr {
+    border-style: none; 
+    height: $hrHeight;
+    margin-top: 0; 
+}
+
+.hr--primary {
+
+   background-color: #2f2c2f;
+
+}
+
+.hr--secondary {
+
+   background-color: $secondary-color; 
+    margin-left: 0; 
+}
+
+.hr--white {
+
+  background-color: white; 
+}
+
+.hr--thick {
+
+  height: $hrHeightBig; 
+
+}
+
+
+.hr--cut {
+    width: rem-calc($level5);
+    margin-left: 0;
+    height: $hrHeightBig;
+}
+
+.hr--center {
+    margin-right: auto; 
+    margin-left: auto; 
+}
+
+
+
+
+
+
+/*------------------------------------*\
+    #Paragraph Sizes 
+\*------------------------------------*/
+
+
+.p1 {
+
+  @extend %p1;
+
+}
+
+.p2 {
+  
+  @extend %p2; 
+}
+
+.p3 {
+  
+  @extend %p3;
+
+}
+
+
+
+
+
+
+/*------------------------------------*\
+    #Text Weights + Syles (Extends _typography.scss module)
+\*------------------------------------*/
+
+
+.fwn         { @extend %fwn; }
+.fwb, strong { @extend %fwb; }
+.fwxb        { font-weight: 800;}
+.uc          { @extend %uc;  }
+.fsi         {font-style: italic;}
+
+
+
+
+
+
+/*------------------------------------*\
+    #Text Alignments  
+\*------------------------------------*/
+
+
+.text-center { @extend %text-center; }
+.text-left   { @extend %text-left;   }
+.text-right  { @extend %text-right;  }
+
+
+.large-text-right {
+
+    @include media-query($large){
+
+        text-align: right; 
+    }
+}
+
+.large-text-center {
+
+    @include media-query($large){
+
+        text-align: center; 
+    }
+}
+
+
+.large-text-left {
+    @include media-query($large){
+
+        text-align: left; 
+    }
+}
+
+
+
+.medium-text-center {
+    @include media-query($medium) {
+        text-align: center; 
+    }
+}
+
+
+
+
+.medium-text-left {
+    @include media-query($medium) {
+        text-align: left; 
+    }
+}
+
+
+
+.medium-text-right {
+
+    @include media-query($medium) {
+
+        text-align: right; 
+    }
+}
+
+
+.small-text-left {
+    @include media-query($medium) {
+        text-align: left; 
+    }
+}
+
+
+
+.small-text-right {
+
+    @include media-query($medium) {
+
+        text-align: right; 
+    }
+}
+
+.small-text-right {
+
+    @include media-query($medium) {
+
+        text-align: center; 
+    }
+}
+
+
+
