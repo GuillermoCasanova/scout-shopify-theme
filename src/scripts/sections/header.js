@@ -26,8 +26,6 @@ theme.Header = (function() {
 
   var Header = function(container) {
 
-    console.log('helllo'); 
-
     this.$container = $(container); 
     var $container = (this.$container = $(container));
 
@@ -52,14 +50,8 @@ theme.Header = (function() {
       menuIsOpen = !menuIsOpen;
     }; 
 
-    function toggleMenuIcon() {
-      if(menuToggle.hasClass('is-menu-open')) {
-        menuToggle.removeClass('is-menu-open');
-        menuToggle.addClass('is-menu-closed');
-      } else {
-        menuToggle.removeClass('is-menu-closed');
-        menuToggle.addClass('is-menu-open');
-      }
+    function toggleMenuIconStyles() {
+      menuToggle.toggleClass('is-menu-open');
     }
 
 
@@ -68,7 +60,7 @@ theme.Header = (function() {
     //
     $(selectors.menuToggle).on('click', function(event) {
         toggleNavigation();
-        toggleMenuIcon();
+        toggleMenuIconStyles();
         console.log('clicked'); 
     }); 
 
@@ -76,19 +68,27 @@ theme.Header = (function() {
     //
     // Code the dropdown menu on small devices 
     //
-    $(selectors.dropDownToggle).on('click', function(event, target) {
-      var id = $(event.target).data('toggle-id'); 
+    $(selectors.dropDownToggle).on('click', function(event) {
 
-      $('[data-dropdown-id]').each(function() {
-        if($(this).hasClass('is-open') && $(this).data('dropdown-id') !== id) {
+      var $target = $(event.target); 
+      var id = null; 
+
+      if($target.data('toggle-id')) {
+        id = $target.data('toggle-id'); 
+      } else {
+        id = $target.parent().data('toggle-id'); 
+      }
+
+      $('[data-drop-down-id]').each(function() {
+        if($(this).hasClass('is-open') && $(this).data('drop-down-id') !== id) {
           $(this).removeClass('is-open');
         }
       });
 
-      if($('[data-dropdown-id=' + id + ']').hasClass('is-open')) {
-        $('[data-dropdown-id=' + id + ']').removeClass('is-open');
+      if($('[data-drop-down-id=' + id + ']').hasClass('is-open')) {
+        $('[data-drop-down-id=' + id + ']').removeClass('is-open');
       } else {
-        $('[data-dropdown-id=' + id + ']').addClass('is-open');
+        $('[data-drop-down-id=' + id + ']').addClass('is-open');
       }
 
     }); 
@@ -97,11 +97,11 @@ theme.Header = (function() {
     //
     // Sets up transtion-delay on all links for stagger animation effect
     //
-    var menuItems = $('.mainNav-animElem');  
+    var menuItems = $('.header__navigation__link');  
 
     for(var i = 0; i < menuItems.length; i++) {
       var item = menuItems[i]; 
-      $(item).css('transition-delay', (.02 * i) + 's');
+      $(item).css('transition-delay', (.03 * i) + 's');
     }
 
   };

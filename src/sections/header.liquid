@@ -69,8 +69,10 @@
             {% for link in linklists[section.settings.main_linklist].links %}
               {% if link.links != blank %}
                 <li class="header__item">
-                  <a href="{{ link.url }}" class="header__navigation__link">{{ link.title | escape }}</a>
-                  <ul class="header__navigation__dropdown">
+                  <button class="header__navigation__link" data-toggle-id="{{ forloop.index }}"
+                        data-drop-down-toggle><span>{{ link.title | escape }}</span>
+                  </button>
+                  <ul class="header__navigation__dropdown" data-drop-down-id="{{forloop.index}}">
                     {% for childlink in link.links %}
                       {% if childlink.links != blank %}
                         <li>
@@ -93,7 +95,7 @@
                 </li>
               {% else %}
                 <li>
-                  <a href="{{ link.url }}"  class="header__navigation__link">{{ link.title | escape }}</a>
+                  <a href="{{ link.url }}"  class="header__navigation__link"><span>{{ link.title | escape }}</span></a>
                 </li>
               {% endif %}
             {% endfor %}
