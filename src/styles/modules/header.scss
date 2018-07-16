@@ -3,12 +3,14 @@
     #Header
 \*------------------------------------*/
 
-header {
+$header-height: rem-calc(66px); 
+
+.header {
 	border-right: 1px solid $primary-color;
 	border-left: 1px solid $primary-color;
 	border-top: 1px solid $primary-color;
 	border-bottom: 1px solid $primary-color;
-	height: rem-calc(60px); 
+	height: $header-height; 
 	padding-top: rem-calc($level2);
 	padding-bottom: rem-calc($level2); 
 	padding-left: rem-calc($level2); 
@@ -20,13 +22,21 @@ header {
 	top: 0; 
 	right: 0; 
 	left: 0; 
-	
+
 	.header__inner {
 		width: 100%; 
 		height: 100%; 
+		position: relative;
 	}
 
 	.header__logo {
+		position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: rem-calc(41px);
 
 		h1 {
 			margin: 0; 
@@ -48,11 +58,11 @@ header {
 	}
 
 	.header__actions {
-  	width: rem-calc(60px); 
+  	width: $header-height; 
 	}
 
 	.header__navigation {
-		background-color: rgba(255, 255, 255, .92);
+		background-color: $modal-bg-color;
 		position: fixed;
 		top: 0; 
 		left: 0; 
@@ -61,6 +71,7 @@ header {
 		height: 100%; 
 		width: 100%; 
 		z-index: 100; 
+		overflow: auto; 
 
 		&.is-closed {
 			animation: close-header-nav .1s linear forwards; 
@@ -83,7 +94,8 @@ header {
 		.header__navigation__inner {
 			width: 100%; 
 			height: 100%;
-			padding-top: rem-calc(60px);  
+			padding-top: $header-height;  
+			position: realtive;
 			border-right: 1px solid $primary-color; 
 			border-left: 1px solid $primary-color; 
 		}
@@ -113,6 +125,7 @@ header {
 			span {
 				display: block;
 				z-index: 1; 
+				text-align: left;
 				position: relative;
 				transform: translateX(0); 
 				transition: filter .2s linear;
@@ -150,9 +163,22 @@ header {
 
 		.header__navigation__dropdown {
 			display: none; 
+			padding: rem-calc($level3); 
 
 			&.is-open {
 				display: block; 
+			}
+
+			.header__navigation__dropdown__item {
+			
+			}
+
+			.header__navigation__dropdown__link {
+				color: $primary-color; 
+				border: none; 
+				margin-bottom: rem-calc($level2); 
+				text-decoration: none; 
+				@include h5(); 
 			}
 		}
 	}
@@ -287,16 +313,201 @@ $toggleWidth: 1.9rem;
 
 
 
+/*------------------------------------*\
+    #Off Canvas Open Body Class
+\*------------------------------------*/
+
+.off-canvas-open {
+	overflow: hidden; 
+}
+
 
 
 /*------------------------------------*\
     #Header Off Canvas Search 
 \*------------------------------------*/
 
-.offCanvasSearch {
-	transform: translateX(100%); 
+.search-modal {
 	background-color: white;
-  position: absolute;
-  display: none;
+  position: fixed;
+  background-color: $modal-bg-color;
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0; 
+
+  .search-modal__inner {
+  	width: 100%; 
+  	height: 100%; 
+
+  	form {
+  		width: 100%; 
+  		max-width: rem-calc(800px);
+  		padding-right: rem-calc($level4); 
+  		padding-left: rem-calc($level4);
+  	}
+  }
+
+  .search-modal__close {
+  	position: absolute;
+		background-color: transparent; 
+		outline: 0; 
+		border: 0; 
+		right: rem-calc($level4); 
+    top: rem-calc(74px);
+    width: rem-calc(30px);
+    height: rem-calc(30px); 
+    transition: all .2s linear; 
+
+	  &:hover, 
+	  &:focus {
+			transform: rotate(45deg); 
+	  }
+
+	  &:after,
+	  &:before {
+	    content: ""; 
+	    height: $toggleStrokeWidth;
+	    background-color: $primary-color; 
+	    width: 100%;  
+	    left: 0; 
+	    right: 0; 
+	    position: absolute;
+	    transition: all .2s cubic-bezier(0.23, 1, 0.32, 1); 
+	  }
+
+	  &:before {
+	    top: 50%; 
+	    transform: translateY(0) rotate(-45deg); 
+	  }
+
+	  &:after {
+	    top: 50%; 
+	    transform: translateY(0) rotate(45deg); 
+	  }
+  }
+
+	&.is-closed {
+		animation: close-header-nav .1s linear forwards; 
+	}
+
+	&.is-open {
+		animation: open-header-nav .1s linear forwards; 
+	}
+	
+	.search-modal__input-container {
+		margin-bottom: rem-calc($level7 + $level3); 
+	}
+
+	.search-modal__input {
+		height: rem-calc($level7 + $level3);
+		color: $primary-color; 
+		width: 100%;
+		outline: 0; 
+		border: 0; 
+		background-color: transparent;
+		border-bottom: 4px solid $primary-color; 
+		padding-left: rem-calc($level2); 
+		font-weight: bold; 
+		margin-bottom: rem-calc($level2); 
+		@include text-kilo();
+
+		@include media-query($large-up) {
+			height: rem-calc($level7 + $level5);
+			padding-left: rem-calc($level2); 
+			@include text-giga();
+		}
+	}
+	
+	.search-modal__input__help {
+		color: $primary-color; 
+		font-weight: bold; 
+		text-transform: uppercase; 
+		display: block;
+		text-align: right; 
+		background-color: transparent;
+		border: none;
+		outline: none; 
+		width: 100%; 
+		padding: 0; 
+		@include text-micro(); 
+	}
+
+
+	.search-modal__input__headline {
+		color: $primary-color; 
+		font-weight: bold; 
+		text-transform: uppercase;
+		text-align: center; 
+		display: block; 
+		margin-bottom: rem-calc($level3); 
+		@include h3();
+	}
+}
+
+
+
+
+/*------------------------------------*\
+    #Header Cart Toggle
+\*------------------------------------*/
+
+
+.cart-toggle {
+	position: relative;
+	display: block;
+	height: 2rem; 
+	width: 2rem; 
+
+	.cart-toggle__count {
+		position: absolute;
+		z-index: 100; 
+		text-align: center; 
+		top: 8px; 
+		bottom: 0; 
+		left: 0; 
+		right: 0; 
+		width: 100%; 
+		height: 100%; 
+		font-weight: bold; 
+		color: $primary-color;
+	}
+
+	.cart-toggle__icon {
+		fill: $primary-color; 
+		width: 100%; 
+		height: 100%; 
+	}
+}
+
+
+
+
+
+/*------------------------------------*\
+    #Header Search Toggle
+\*------------------------------------*/
+
+
+.header__search-toggle {
+	margin-right: rem-calc($level2); 
+}
+
+
+.search-toggle {
+	height: 1.4rem; 
+	width: 1.4rem; 
+	display: block;
+	position: relative;
+	outline: 0; 
+	border: 0; 
+	top: 8px; 
+	padding: 0; 
+	background-color: transparent;
+
+	.search-toggle__icon {
+		width: 100%; 
+		height: 100%; 
+	}
 }
 

@@ -1,6 +1,6 @@
 
 <div data-section-id="{{ section.id }}" data-section-type="header" data-template="{{ template.name }}">
-  <header role="banner">
+  <header class="header"  role="banner">
     
     <div class="header__inner  flex-grid  flex-grid--center  flex-grid--justifySpaceBetween">
 
@@ -27,12 +27,19 @@
         {% endif %}
       </div>
   
-      <div class="header__actions  grid  grid--center">
-        <a href="/cart">
-          {% include 'icon-cart' %}
-          {{ cart.item_count }}
-        </a>
-          
+      <div class="header__actions flex-grid flex-grid--justifyRight">
+        <div class="header__search-toggle">
+          <button class="search-toggle" data-search-toggle>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 419.5 402.8" class="search-toggle__icon"><path d="M396.1 353.4L279 235.7c16.9-24 27-53.2 27-84.8 0-81-65.3-146.6-145.8-146.6C79.7 4.2 14.4 69.8 14.4 150.8s65.3 146.6 145.8 146.6c31.5 0 60.5-10.1 84.4-27.2L361.7 388c4.8 4.8 11 7.2 17.2 7.2 6.2 0 12.5-2.4 17.2-7.2 9.5-9.5 9.5-25 0-34.6zM239.4 207.3l-9.6 13.5-13.4 9.6c-16.6 11.9-36 18.1-56.2 18.1-53.6 0-97.2-43.9-97.2-97.8s43.6-97.8 97.2-97.8 97.2 43.9 97.2 97.8c0 20.4-6.2 40-18 56.6z"/></svg>
+          </button>
+        </div>
+        <div class="header__cart-toggle">
+          <a href="/cart" class="cart-toggle">
+            <span class="cart-toggle__count">{{ cart.item_count }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 419.5 402.8" class="cart-toggle__icon"><path d="M419.5 393.3l-18-292c-.3-4.7-4.2-8.4-9-8.4H291.2V81.4c0-44.9-36.5-81.4-81.4-81.4s-81.4 36.5-81.4 81.4v11.4H27c-4.8 0-8.7 3.7-9 8.4l-18 292c-.2 2.5.7 4.9 2.4 6.7 1.7 1.8 4.1 2.8 6.6 2.8h401.5c2.5 0 4.9-1 6.6-2.8 1.7-1.7 2.5-4.1 2.4-6.6zM146.3 81.4c0-35 28.4-63.4 63.4-63.4s63.4 28.4 63.4 63.4v11.4H146.3V81.4zM18.6 384.8l16.9-274H384l16.9 274H18.6z"/></svg>
+          </a>
+        </div>
+
         {% if shop.customer_accounts_enabled %}
 <!--           <ul>
             {% if customer %}
@@ -68,14 +75,14 @@
           <ul class="header__navigation__links">
             {% for link in linklists[section.settings.main_linklist].links %}
               {% if link.links != blank %}
-                <li class="header__item">
+                <li class="header__navigation__item">
                   <button class="header__navigation__link" data-toggle-id="{{ forloop.index }}"
                         data-drop-down-toggle><span>{{ link.title | escape }}</span>
                   </button>
                   <ul class="header__navigation__dropdown" data-drop-down-id="{{forloop.index}}">
                     {% for childlink in link.links %}
                       {% if childlink.links != blank %}
-                        <li>
+                        <li class="header__navigation__item">
                           <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
                           <ul>
                             {% for grandchildlink in childlink.links %}
@@ -86,8 +93,8 @@
                           </ul>
                         </li>
                       {% else %}
-                        <li>
-                          <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                        <li class="header__navigation__dropdown__item">
+                          <a href="{{ childlink.url }}" class="header__navigation__dropdown__link">{{ childlink.title | escape }}</a>
                         </li>
                       {% endif %}
                     {% endfor %}
@@ -105,23 +112,31 @@
 
   </header>
 
-    <div class="offCanvasSearch">
+  <div class="search-modal  is-closed" data-search-modal>
+    <div class="search-modal__inner  flex-grid  flex-grid--center  flex-grid--justifyCenter">
+
+      <button class="search-modal__close">
+      </button>
+
       <form action="/search" method="get" role="search">
-        <label for="Search" class="label-hidden">
-          {{ 'general.search.placeholder' | t }}
+        <label for="Search" class="search-modal__input__headline  medium-up--hide">
+          Search the store
         </label>
-        <input type="search"
-               name="q"
-               id="Search"
-               value="{{ search.terms | escape }}"
-               placeholder="{{ 'general.search.placeholder' | t }}">
-        <button type="submit" class="btn">
-          {% include 'icon-search' %}
-          <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-        </button>
+        <div class="search-modal__input-container">
+          <input type="search"
+                 name="q"
+                 id="Search"
+                 value="{{ search.terms | escape }}"
+                 placeholder="search query" 
+                 class="search-modal__input"
+                 data-search-input>
+          <button type="submit" class="search-modal__input__help">
+            <span class="small--hide  medium-up--show">press enter to search</span>
+          </button>
+        </div>
       </form>
     </div>
-
+  </div>
 
 </div>
 

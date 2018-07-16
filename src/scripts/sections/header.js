@@ -13,10 +13,15 @@ theme.Header = (function() {
     menuToggle: '[data-menu-toggle]',
     dropDownToggle: '[data-drop-down-toggle]',
     menuContainer: '[data-menu]',
-    cartContainer: '[data-cart]'
+    cartContainer: '[data-cart]',
+    searchToggle: '[data-search-toggle]',
+    searchModal: '[data-search-modal]',
+    searchInput: '[data-search-input]'
   };
 
   var offCanvasMenu = $(selectors.offCanvasMenu);
+  var searchModal = $(selectors.searchModal); 
+  var searchInput = $(selectors.searchInput);
   var menuToggle = $(selectors.menuToggle); 
   var cartContainer = $(selectors.cartContainer);
   var menuContainer = $(selectors.menuContainer);
@@ -47,6 +52,7 @@ theme.Header = (function() {
     function toggleNavigation() {
       offCanvasMenu.toggleClass('is-closed');
       offCanvasMenu.toggleClass('is-open');
+      $('body').toggleClass('off-canvas-open'); 
       menuIsOpen = !menuIsOpen;
     }; 
 
@@ -54,6 +60,12 @@ theme.Header = (function() {
       menuToggle.toggleClass('is-menu-open');
     }
 
+    function toggleSearchModal() {
+      searchModal.toggleClass('is-closed');
+      searchModal.toggleClass('is-open');
+      $('body').toggleClass('off-canvas-open'); 
+      searchInput.focus();
+    };
 
     //
     // Toggles Navigation and menu toggle icon
@@ -61,7 +73,6 @@ theme.Header = (function() {
     $(selectors.menuToggle).on('click', function(event) {
         toggleNavigation();
         toggleMenuIconStyles();
-        console.log('clicked'); 
     }); 
 
 
@@ -93,6 +104,13 @@ theme.Header = (function() {
 
     }); 
 
+
+    //
+    // Code to toggle search panel
+    //
+    $(selectors.searchToggle).on('click', function(event) {
+      toggleSearchModal(); 
+    });
 
     //
     // Sets up transtion-delay on all links for stagger animation effect
