@@ -1,0 +1,17 @@
+
+/*------------------------------------*\
+    #Sections
+\*------------------------------------*/
+
+section {
+	position: relative;
+}
+
+
+.section--main {
+	margin-top: rem-calc(60px); 
+	
+	@include media-query($large-up) {
+ 		margin-top: rem-calc(120px); 
+	}
+}

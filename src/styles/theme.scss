@@ -18,7 +18,6 @@
 
 /*================ GLOBAL ================*/
 @import url('global/normalize.scss');
-@import url('global/slate-reset.scss');
 @import url('global/helper-classes.scss');
 @import url('global/grid.scss');
 @import url('global/flexbox.scss');
@@ -26,16 +25,22 @@
 @import url('global/icons.scss');
 @import url('global/rte.scss');
 @import url('global/responsive-tables.scss');
+@import url('global/slate-reset.scss');
+@import url('global/typography.scss');
 @import url('global/links-buttons.scss');
 @import url('global/forms.scss');
 @import url('global/blank-states.scss');
-@import url('global/typography.scss');
 
 
 /*================ MODULES ================*/
 @import url('modules/header.scss');
-@import url('modules/site-header.scss');
 @import url('modules/gift-card-template.scss');
+@import url('modules/sections.scss');
+@import url('modules/site-header.scss');
+
+/*================ PAGES ================*/
+@import url('pages/collection.scss');
+
 
 /*================ VENDOR ================*/
 

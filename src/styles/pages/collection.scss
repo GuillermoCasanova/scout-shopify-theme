@@ -1,0 +1,19 @@
+
+/*------------------------------------*\
+    #Collection 
+\*------------------------------------*/
+
+
+.collection-header {
+	padding-top: rem-calc($level7);
+	padding-bottom: rem-calc($level7); 
+	position: relative;
+}
+
+
+.collection-filters {
+	border-top: 1px solid $primary-color; 
+	border-bottom: 1px solid $primary-color; 
+	height: rem-calc(36px);
+	overflow: hidden; 
+}
