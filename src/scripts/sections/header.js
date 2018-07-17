@@ -90,6 +90,8 @@ theme.Header = (function() {
         id = $target.parent().data('toggle-id'); 
       }
 
+      $('[data-toggle-id=' + id + ']').toggleClass('is-open'); 
+
       $('[data-drop-down-id]').each(function() {
         if($(this).hasClass('is-open') && $(this).data('drop-down-id') !== id) {
           $(this).removeClass('is-open');
@@ -111,6 +113,7 @@ theme.Header = (function() {
     $(selectors.searchToggle).on('click', function(event) {
       toggleSearchModal(); 
     });
+
 
     //
     // Sets up transtion-delay on all links for stagger animation effect
