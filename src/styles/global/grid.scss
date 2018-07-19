@@ -276,7 +276,6 @@
 
 
 
-
 /*------------------------------------*\
     $WIDTHS
 \*------------------------------------*/
@@ -285,6 +284,18 @@
  */
 @mixin device-type($namespace:"") {
     $prefix: $class-type + $namespace;
+
+
+    #{$prefix}grid--rev {
+        direction:rtl;
+        text-align:left;
+
+        > .grid__item {
+            direction:ltr;
+            text-align:left;
+        }
+    }
+
 
     /**
      * Whole

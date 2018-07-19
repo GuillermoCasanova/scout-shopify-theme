@@ -8,6 +8,19 @@
 	padding-top: rem-calc($level7);
 	padding-bottom: rem-calc($level7); 
 	position: relative;
+
+	.collection-header__hero-image {
+		margin-bottom: rem-calc($level3); 
+	}
+
+	.collection-header__headline {
+		margin-bottom: rem-calc($level2); 
+		@include h2();
+
+		@include media-query($medium-up) {
+			@include h1(); 
+		}
+	}
 }
 
 
@@ -16,4 +29,48 @@
 	border-bottom: 1px solid $primary-color; 
 	height: rem-calc(36px);
 	overflow: hidden; 
+}
+
+
+
+
+/*------------------------------------*\
+    #Collection Products
+\*------------------------------------*/
+
+.collection__products {
+	
+	@include media-query($medium-up) {
+
+		.grid__item:nth-child(4n+0) {
+			.collection-product {
+				border-right: 1px solid $primary-color; 
+			}
+		}
+	}
+}
+
+
+.collection-product {
+	border-bottom: 1px solid $primary-color; 
+	border-left: 1px solid $primary-color; 
+	width: 100%; 
+	height: 100%; 
+
+	.collection-product__inner {
+		position: relative;
+		width: 100%; 
+		height: 100%; 
+	}
+
+	.collection-product__info {
+		position: absolute;
+		z-index: 1; 
+		opacity: 0; 
+	}
+
+	.collection-product__image {
+		width: 100%;
+		height: 100%; 
+	}
 }

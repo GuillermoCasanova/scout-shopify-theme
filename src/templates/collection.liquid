@@ -1,25 +1,32 @@
 {% paginate collection.products by 12 %}
   <div class="section--main">
-    <header role="banner" class="grid  collection-header">
+    <header role="banner" class="grid   grid--middle  medium-up--grid--rev  collection-header">
   
-      <div class="grid__item  medium-up--one-half">
-        <div class="collection-header__hero-image">
-          image goes here
-        </div>
+      <div class="grid__item  medium-up--one-half    pull--large-up--one-twelfths">
+       <div class="grid grid--center">
+         <div class="grid__item eight-twelfths  medium-up--eleven-twelfths">
+            <div class="collection-header__hero-image">
+            {% if collection.image %}
+              {{ collection.image | img_url: 'large' | img_tag }}
+            {% endif %}
+          </div>
+         </div>
+       </div>
       </div>  
 
-      <div class="grid__item  medium-up--one-half">
+      <div class="grid__item  medium-up--one-half ">
          <div class="grid  grid--center"> 
-          <div class="grid__item ten-twelfths"><h1 class="collection-header__headline">{{ collection.title }}</h1>
-                    
-             <div class="collection-header__description rte">
-               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quasi maxime, ea suscipit doloribus mollitia laborum perspiciatis, necessitatibus quam nobis magnam laboriosam voluptatibus, modi debitis nihil dolorum recusandae. Tempore, magni!
-               {{ collection.description }}
-             </div>
-              {% if collection.description != blank %}
-                     {% endif %}</div>
+          <div class="grid__item ten-twelfths medium-up--eleven-twelfths  large-up--nine-twelfths">
+            <h1 class="collection-header__headline  headline">{{ collection.title }}</h1>
+           <div class="collection-header__description rte">
+            {% if collection.description != blank %}
+             {{ collection.description }}
+            {% endif %}
+           </div>
           </div>
+        </div>
       </div>
+
     </header>
   </div>
 
@@ -51,71 +58,57 @@
     </div>
   </div>
 
-  <div class="grid">
+  <div class="grid  grid--full  flex-grid  flex-grid--stretch  flex-grid--flex-wrap  collection__products">
     {% for product in collection.products %}
       <div class="grid__item  one-half medium-up--one-quarter">
-        {% if product.featured_image != blank %}
-          <a href="{{ product.url | within: collection }}">
-            {{ product.featured_image.src | img_url: '480x480' | img_tag: product.featured_image.alt }}
-          </a>
-        {% endif %}
-
-        <p>
-          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-        </p>
-        <p>
-          {% if product.compare_at_price > product.price %}
-
-            {% if product.price_varies %}
-              {%- assign sale_price = product.price | money -%}
-              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-            {% else %}
-              {{ 'products.product.on_sale' | t }}
-              {{ product.price | money }}
-            {% endif %}
-
-          {% else %}
-
-            {% if product.price_varies %}
-              {%- assign price = product.price | money -%}
-              {{ 'products.product.from_text_html' | t: price: price }}
-            {% else %}
-              {{ product.price | money }}
-            {% endif %}
-
-          {% endif %}
-
-          {% if product.compare_at_price > product.price %}
-            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-            <s>{{ product.compare_at_price | money }}</s>
-          {% endif %}
-
-          {% unless product.available %}
-            {{ 'products.product.sold_out' | t }}
-          {% endunless %}
-        </p>
+        <div class="collection-product">
+          <div class="collection-product__inner">
+            <a href="{{ product.url | within: collection }}">
+              <div class="collection-product__image  grid  grid--full  grid--bottom  flex-grid  flex-grid--bottom">
+                {% if product.featured_image != blank %}
+                    {{ product.featured_image.src | img_url: '800x800' | img_tag: product.featured_image.alt , 'grid__item'}}
+                {% endif %}
+              </div>
+            </a>
+          <div class="collection-product__info">
+              <p>
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+              </p>
+              <p>
+                {% if product.compare_at_price > product.price %}
+              
+                  {% if product.price_varies %}
+                    {%- assign sale_price = product.price | money -%}
+                    {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                  {% else %}
+                    {{ 'products.product.on_sale' | t }}
+                    {{ product.price | money }}
+                  {% endif %}
+              
+                {% else %}
+              
+                  {% if product.price_varies %}
+                    {%- assign price = product.price | money -%}
+                    {{ 'products.product.from_text_html' | t: price: price }}
+                  {% else %}
+                    {{ product.price | money }}
+                  {% endif %}
+              
+                {% endif %}
+              
+                {% if product.compare_at_price > product.price %}
+                  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                  <s>{{ product.compare_at_price | money }}</s>
+                {% endif %}
+              
+                {% unless product.available %}
+                  {{ 'products.product.sold_out' | t }}
+                {% endunless %}
+              </p>
+           </div>
+        </div>
       </div>
-
-    {% else %}
-      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
-        {% for i in (1..8) %}
-          <a href="#">
-            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-          </a>
-
-          <p>
-            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
-          </p>
-
-          <p>
-            {{ 1999 | money }}
-          </p>
-        {% endfor %}
-      {% else %}
-        <p>{{ 'collections.general.no_matches' | t }}</p>
-      {% endif %}
-
+    </div>
     {% endfor %}
   </div>
 

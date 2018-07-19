@@ -22,7 +22,8 @@ $header-height: rem-calc(66px);
 	top: 0; 
 	right: 0; 
 	left: 0; 
-
+	z-index: 100; 
+	
 	@include media-query($large-up) {
 		padding-left: rem-calc($level4); 
 		padding-right: rem-calc($level4); 		
@@ -517,7 +518,9 @@ $toggleWidth: 1.9rem;
   top: 0; 
   right: 0; 
   bottom: 0; 
-  left: 0; 
+  left: 0;
+  z-index: 101; 
+  will-change: opacity;  
 
   .search-modal__inner {
   	width: 100%; 
