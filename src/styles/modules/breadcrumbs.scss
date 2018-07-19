@@ -1,0 +1,25 @@
+
+/*------------------------------------*\
+    #Breadcrumbs
+\*------------------------------------*/
+
+.breadcrumb {
+	border-bottom: 1px solid $primary-color; 
+	border-left: 1px solid $primary-color; 
+	border-right: 1px solid $primary-color; 
+	width: 100%; 
+	padding-top: rem-calc($level1);
+	padding-bottom: rem-calc($level1);
+	padding-left: rem-calc($level3); 
+	@include text-micro(); 
+
+	@include media-query($large-up) {
+		padding-left: rem-calc($level7); 
+	}
+
+	a {
+		color: $primary-color; 
+		text-decoration: none; 
+		opacity: .5; 
+	}
+}

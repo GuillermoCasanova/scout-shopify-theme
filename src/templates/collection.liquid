@@ -1,5 +1,14 @@
 {% paginate collection.products by 12 %}
   <div class="section--main">
+
+    <div class="grid">
+      <div class="grid__item">
+        <div class="breadcrumbs">
+          {% include 'breadcrumbs' %}
+        </div>
+      </div>
+    </div>
+
     <header role="banner" class="grid   grid--middle  medium-up--grid--rev  collection-header">
   
       <div class="grid__item  medium-up--one-half    pull--large-up--one-twelfths">
@@ -61,54 +70,66 @@
   <div class="grid  grid--full  flex-grid  flex-grid--stretch  flex-grid--flex-wrap  collection__products">
     {% for product in collection.products %}
       <div class="grid__item  one-half medium-up--one-quarter">
-        <div class="collection-product">
+        <a href="{{ product.url | within: collection }}" class="collection-product">
           <div class="collection-product__inner">
-            <a href="{{ product.url | within: collection }}">
-              <div class="collection-product__image  grid  grid--full  grid--bottom  flex-grid  flex-grid--bottom">
-                {% if product.featured_image != blank %}
-                    {{ product.featured_image.src | img_url: '800x800' | img_tag: product.featured_image.alt , 'grid__item'}}
-                {% endif %}
+            <div class="collection-product__image  grid  grid--full  grid--bottom  flex-grid  flex-grid--bottom">
+              {% if product.featured_image != blank %}
+                  {{ product.featured_image.src | img_url: '800x800' | img_tag: product.featured_image.alt , 'grid__item'}}
+              {% endif %}
+            </div>
+
+            <div class="collection-product__info  flex-grid  flex-grid--center">
+              <div class="collection-product__info__primary flex-grid  flex-grid--center  flex-grid--justify-space-between">
+                <h2 class="collection-product__info__title">{{ product.title }}</h2>
+                <p class="collection-product__info__price">
+                  
+                  {% if product.compare_at_price > product.price %}
+                
+                    {% if product.price_varies %}
+                      {%- assign sale_price = product.price | money -%}
+                      {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                    {% else %}
+                      {{ 'products.product.on_sale' | t }}
+                      {{ product.price | money }}
+                    {% endif %}
+                
+                  {% else %}
+                
+                    {% if product.price_varies %}
+                      {%- assign price = product.price | money -%}
+                      {{ 'products.product.from_text_html' | t: price: price }}
+                    {% else %}
+                      {{ product.price | money }}
+                    {% endif %}
+                
+                  {% endif %}
+                
+                  {% if product.compare_at_price > product.price %}
+                    <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    <s>{{ product.compare_at_price | money }}</s>
+                  {% endif %}
+                
+                  {% unless product.available %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% endunless %}
+                </p>
               </div>
-            </a>
-          <div class="collection-product__info">
-              <p>
-                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-              </p>
-              <p>
-                {% if product.compare_at_price > product.price %}
               
-                  {% if product.price_varies %}
-                    {%- assign sale_price = product.price | money -%}
-                    {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-                  {% else %}
-                    {{ 'products.product.on_sale' | t }}
-                    {{ product.price | money }}
-                  {% endif %}
-              
-                {% else %}
-              
-                  {% if product.price_varies %}
-                    {%- assign price = product.price | money -%}
-                    {{ 'products.product.from_text_html' | t: price: price }}
-                  {% else %}
-                    {{ product.price | money }}
-                  {% endif %}
-              
-                {% endif %}
-              
-                {% if product.compare_at_price > product.price %}
-                  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-                  <s>{{ product.compare_at_price | money }}</s>
-                {% endif %}
-              
-                {% unless product.available %}
-                  {{ 'products.product.sold_out' | t }}
-                {% endunless %}
-              </p>
-           </div>
-        </div>
+
+              <ul class="collection-product__info__options  flex-grid  flex-grid--center flex-grid--flex-direction-row">
+              {% for variant in product.variants %}
+                <li> 
+                 <span class="collection-product__info__options__option  flex-grid  flex-grid--center  flex-grid--justify-center {% if variant.available == false %}collection-product__info__options__option--sold-out {% endif %}">
+                  <span class="flex-grid-cell">{{ variant.title }}</span>
+                  </span>
+                </li>
+              {% endfor %}
+              </ul>
+
+            </div>
+          </div>
+        </a>
       </div>
-    </div>
     {% endfor %}
   </div>
 

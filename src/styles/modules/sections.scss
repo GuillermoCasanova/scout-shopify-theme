@@ -9,9 +9,9 @@ section {
 
 
 .section--main {
-	margin-top: rem-calc(60px); 
+	margin-top: 4.1rem; 
 	
 	@include media-query($large-up) {
- 		margin-top: rem-calc(120px); 
+ 		margin-top: 7.1rem; 
 	}
 }
