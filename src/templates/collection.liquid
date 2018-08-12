@@ -69,9 +69,14 @@
 
   <div class="grid  grid--full  flex-grid  flex-grid--stretch  flex-grid--flex-wrap  collection__products">
     {% for product in collection.products %}
-      <div class="grid__item  one-half medium-up--one-quarter">
+      <div class="grid__item  one-half  large-up--one-quarter">
         <a href="{{ product.url | within: collection }}" class="collection-product">
           <div class="collection-product__inner">
+             {% unless product.available %}
+             <div class="collection-product__sold-out">
+                  {{ 'products.product.sold_out' | t }}
+             </div>
+            {% endunless %}
             <div class="collection-product__image  grid  grid--full  grid--bottom  flex-grid  flex-grid--bottom">
               {% if product.featured_image != blank %}
                   {{ product.featured_image.src | img_url: '800x800' | img_tag: product.featured_image.alt , 'grid__item'}}
@@ -79,7 +84,7 @@
             </div>
 
             <div class="collection-product__info  flex-grid  flex-grid--center">
-              <div class="collection-product__info__primary flex-grid  flex-grid--center  flex-grid--justify-space-between">
+              <div class="collection-product__info__primary flex-grid  flex-grid--center  flex-grid--justify-space-between  flex-grid--flex-wrap med-flex-grid--flex-no-wrap">
                 <h2 class="collection-product__info__title">{{ product.title }}</h2>
                 <p class="collection-product__info__price">
                   
@@ -106,17 +111,15 @@
                 
                   {% if product.compare_at_price > product.price %}
                     <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-                    <s>{{ product.compare_at_price | money }}</s>
+                    {{ product.compare_at_price | money }}
                   {% endif %}
                 
-                  {% unless product.available %}
-                    {{ 'products.product.sold_out' | t }}
-                  {% endunless %}
+               
                 </p>
               </div>
               
 
-              <ul class="collection-product__info__options  flex-grid  flex-grid--center flex-grid--flex-direction-row">
+              <ul class="collection-product__info__options  flex-grid  flex-grid--center flex-grid--flex-direction-row  flex-grid--flex-wrap">
               {% for variant in product.variants %}
                 <li> 
                  <span class="collection-product__info__options__option  flex-grid  flex-grid--center  flex-grid--justify-center {% if variant.available == false %}collection-product__info__options__option--sold-out {% endif %}">

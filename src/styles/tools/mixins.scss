@@ -55,7 +55,7 @@
 
     @if $media-query == $name and $declaration {
       $breakpoint-found: true;
-
+      
       @media only screen and #{$declaration} {
         @content;
       }
