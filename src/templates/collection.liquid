@@ -39,31 +39,38 @@
     </header>
   </div>
 
-  <div class="grid  collection-filters">
-    {% if collection.all_tags.size > 0 %}
-    <span class="filter by"></span>
-    <div class="collection-filters__tags">
-      <ul>
-        {% for tag in collection.all_tags %}
-          {% if current_tags contains tag %}
-            <li class="active">
-              {{ tag | link_to_remove_tag: tag }}
-            </li>
-          {% else %}
+  <div class="collection-filters" data-collection-filter>
+    <div class="collection-filters__inner  flex-grid  flex-grid--flex-direction-row  flex-grid--justify-space-between">
+      {% if collection.all_tags.size > 0 %}
+      
+      <div class="collection-filters__tags">
+        <div role="button" class="collection-filters__tags__toggle" data-tags-toggle>Filter By <span data-current-filter></span></div>
+        <ul class="collection-filters__tags__list"  data-tags-list> 
+          {% for type in collection.all_types %}
+              <li class="collection-filters__tags__tag">
+                <a href="#filter" data-filter="{{type}}">{{type}}</a>
+              </li>
+          {% endfor %}
             <li>
-              {{ tag | link_to_tag: tag }}
+              <a href="{{canonical_url}}" title="all">Show Everything</a>
             </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
+        </ul>
+      </div>
+      {% endif %}
 
-    <div class="grid__item  collection-filters__sorting">
-      <span>Sort By</span>
-      <ul>
-        
-      </ul>
+      <div class="collection-filters__sorting">
+       <div role="button" class="collection-filters__sorting__toggle" data-sorter-toggle>Sort By <span data-current-sort></span></div>
+       <ul class="collection-filters__sorting__list"   data-sorter-list>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="manual">Featured</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="best-selling">Best Selling</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="price-ascending">Price: Low to High</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="price-descending">Price: High to Low</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="title-ascending">A-Z</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="title-descending">Z-A</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-ascending">Oldest to Newest</a></li>
+         <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-descending">Newest to Oldest</a></li>
+       </ul>
+      </div>
     </div>
   </div>
 
@@ -140,3 +147,4 @@
     {% include 'pagination' %}
   {% endif %}
 {% endpaginate %}
+
