@@ -114,6 +114,14 @@ theme.Header = (function() {
       toggleSearchModal(); 
     });
 
+    $('[data-collection]').on('click', function(event) {
+
+      var collection = $(this).data('collection'); 
+      
+      sessionStorage.setItem('parentCollection', collection); 
+
+    }); 
+
 
     //
     // Sets up transtion-delay on all links for stagger animation effect

@@ -106,7 +106,7 @@
                 </li>
               {% else %}
                 <li  class="header__navigation__item  flex-grid-cell  flex-grid-cell--auto-size"> 
-                  <a href="{{ link.url }}"  class="header__navigation__link"><span>{{ link.title | escape }}</span></a>
+                  <a href="{{ link.url }}"  class="header__navigation__link"  {% if link.type == 'collection_link' %} data-collection="{{link.object.handle }}" {% endif %}><span>{{ link.object.handle}}</span></a>
                 </li>
               {% endif %}
             {% endfor %}

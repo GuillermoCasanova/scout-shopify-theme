@@ -22,6 +22,9 @@ theme.collection = (function() {
 
 	Shopify.queryParams = {}; 
 
+	Shopify.queryParams.parentCollection = location;
+	
+	console.log(sessionStorage.getItem('parentCollection')); 
 
 	//
 	// Initializes the filtering component behavior for a collection 
@@ -43,22 +46,25 @@ theme.collection = (function() {
 			}
 		});
 
-		if(location.search.length) {
+		// if(location.search.length) {
 
-			for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
-				aKeyValue = aCouples[i].split('='); 
-				if(aKeyValue.length > 1) {
-					Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]); 
-				}
-			}		
+		// 	for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+		// 		aKeyValue = aCouples[i].split('='); 
+		// 		if(aKeyValue.length > 1) {
+		// 			Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]); 
+		// 		}
+		// 	}		
 
-			$('[data-current-filter]').text($('[data-select=' + Shopify.queryParams.q + ']').text()); 	
-		}
+		// 	$('[data-current-filter]').text($('[data-select=' + Shopify.queryParams.q + ']').text()); 	
+		// }
+
+
+		$('[href="#show-all"]').attr('href', '/collections/' + sessionStorage.getItem('parentCollection')); 
 
 		$('[href="#filter"]').on('click', function(event) {
 			event.preventDefault(); 
-			Shopify.queryParams.q = $(this).data('filter');
-			location.search = $.param(Shopify.queryParams).replace(/\+/g, '%20'); 
+			 var tag = $(this).data('filter');
+			location = ('/collections/' +  tag).replace(/\+/g, '%20');  
 		}); 
 	}; 
 
@@ -100,11 +106,10 @@ theme.collection = (function() {
 
 		$('[href="#sort"]').on('click', function(event) {
 					event.preventDefault();
-					console.log(this); 
 			 		Shopify.queryParams.sort_by = $(this).data('select'); 
-			 		console.log(Shopify.queryParams); 
 			 		location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20'); 
-			 })
+		})
+
 	}; 
 
 
