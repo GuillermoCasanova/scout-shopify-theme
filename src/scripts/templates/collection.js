@@ -22,10 +22,6 @@ theme.collection = (function() {
 
 	Shopify.queryParams = {}; 
 
-	Shopify.queryParams.parentCollection = location;
-	
-	console.log(sessionStorage.getItem('parentCollection')); 
-
 	//
 	// Initializes the filtering component behavior for a collection 
 	//
@@ -46,26 +42,11 @@ theme.collection = (function() {
 			}
 		});
 
-		// if(location.search.length) {
 
-		// 	for(var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
-		// 		aKeyValue = aCouples[i].split('='); 
-		// 		if(aKeyValue.length > 1) {
-		// 			Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]); 
-		// 		}
-		// 	}		
+		if(location.search.length) {
+			console.log(location.search);
+		}
 
-		// 	$('[data-current-filter]').text($('[data-select=' + Shopify.queryParams.q + ']').text()); 	
-		// }
-
-
-		$('[href="#show-all"]').attr('href', '/collections/' + sessionStorage.getItem('parentCollection')); 
-
-		$('[href="#filter"]').on('click', function(event) {
-			event.preventDefault(); 
-			 var tag = $(this).data('filter');
-			location = ('/collections/' +  tag).replace(/\+/g, '%20');  
-		}); 
 	}; 
 
 

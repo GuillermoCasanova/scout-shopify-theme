@@ -44,15 +44,18 @@
       {% if collection.all_tags.size > 0 %}
       
       <div class="collection-filters__tags">
-        <div role="button" class="collection-filters__tags__toggle" data-tags-toggle>Filter By <span data-current-filter></span></div>
+        <div role="button" class="collection-filters__tags__toggle" data-tags-toggle>
+            <span class="small--hide">Filter By </span>
+            {% if current_tags %}<span data-current-filter>{{current_tags}}</span>{% endif%}
+        </div>
         <ul class="collection-filters__tags__list"  data-tags-list> 
           {% for type in collection.all_types %}
               <li class="collection-filters__tags__tag">
-                <a href="#filter" data-filter="{{type}}">{{type}}</a>
+                {{type | link_to_tag: type }} 
               </li>
           {% endfor %}
             <li>
-              <a href="#show-all" data-filter="" title="all">Show Everything</a>
+               {{ 'Show All Products' | link_to: collection.url, 'Show All Products'}} 
             </li>
         </ul>
       </div>
