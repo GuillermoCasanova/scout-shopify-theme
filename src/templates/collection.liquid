@@ -44,9 +44,17 @@
       {% if collection.all_tags.size > 0 %}
       
       <div class="collection-filters__tags">
-        <div role="button" class="collection-filters__tags__toggle" data-tags-toggle>
-            <span class="small--hide">Filter By </span>
-            {% if current_tags %}<span data-current-filter>{{current_tags}}</span>{% endif%}
+        <div >
+          {% if current_tags %}
+            <span class="collection-filters__tags__toggle" data-current-filter role="button" data-tags-toggle>
+            {{current_tags}}
+            </span> 
+            <span class="collection-filters__tags__clear">
+              ({{ 'Clear Filter' | link_to_tag: ''}})
+            </span>
+          {% else %}
+            <span  class="collection-filters__tags__toggle" data-tags-toggle role="button">Filter By </span>
+          {% endif%}
         </div>
         <ul class="collection-filters__tags__list"  data-tags-list> 
           {% for type in collection.all_types %}
@@ -54,16 +62,40 @@
                 {{type | link_to_tag: type }} 
               </li>
           {% endfor %}
-            <li>
-               {{ 'Show All Products' | link_to: collection.url, 'Show All Products'}} 
-            </li>
         </ul>
       </div>
       {% endif %}
 
       <div class="collection-filters__sorting">
-       <div role="button" class="collection-filters__sorting__toggle" data-sorter-toggle>Sort By <span data-current-sort></span></div>
-       <ul class="collection-filters__sorting__list"   data-sorter-list>
+       <div role="button" class="collection-filters__sorting__toggle" data-sorter-toggle>Sort By</div>
+        <select class="collection-filters__sorting__select" data-sorter-select>
+          <option value="manual">
+            Sort By Featured
+          </option>
+          <option value="best-selling">
+            Sort By  Best Selling
+          </option>
+          <option value="price-ascending">
+            Sort By Price Ascencing
+          </option>
+          <option value="price-descending">
+            Sort By Price Descending
+          </option>
+          <option value="title-ascending">
+            Sort By A-Z
+          </option>
+          <option value="title-descending">
+            Sort By Z-A
+          </option>
+          <option value="created-ascending">
+            Sort By Oldest to Newest
+          </option>
+          <option value="created-descending">
+            Sort By Newest to Oldest
+          </option>
+        </select>
+<!--        <div role="button" class="collection-filters__sorting__toggle" data-sorter-toggle>Sort By <span data-current-sort></span></div> -->
+<!--        <ul class="collection-filters__sorting__list"   data-sorter-list>
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="manual">Featured</a></li>
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="best-selling">Best Selling</a></li>
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="price-ascending">Price: Low to High</a></li>
@@ -72,7 +104,7 @@
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="title-descending">Z-A</a></li>
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-ascending">Oldest to Newest</a></li>
          <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-descending">Newest to Oldest</a></li>
-       </ul>
+       </ul> -->
       </div>
     </div>
   </div>

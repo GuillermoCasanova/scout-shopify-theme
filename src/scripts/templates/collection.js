@@ -13,7 +13,7 @@ theme.collection = (function() {
 			tagsToggle: '[data-tags-toggle]',
 			sorterToggle: '[data-sorter-toggle]',
 			tags: '[data-tags-list]',
-			sorterItems: '[data-sorter-list]'
+			sorterSelect: '[data-sorter-select]'
 	};
 
 
@@ -55,15 +55,19 @@ theme.collection = (function() {
 	//
 	var initSorters = function() {
 
-		var $sorterItems = $(selectors.sorterItems);
-		$sorterItems.hide(); 
+		var $sorterSelect = $(selectors.sorterSelect);
+		var $sorterToggle = $(selectors.sorterToggle); 
+		$sorterSelect.hide(); 
 
-		$(selectors.sorterToggle).on('click', function() {
-			if($sorterItems.css('display') === 'block') {
-				$sorterItems.slideUp("slow"); 
+		$sorterToggle.on('click', function(event) {
+
+			$sorterToggle.css('display', 'none'); 
+
+			if($sorterSelect.css('display') === 'block') {
+				$sorterSelect.hide(); 
 				$(selectors.tagsToggle).css('opacity', 1); 
 			} else {
-				$sorterItems.slideDown("slow"); 
+				$sorterSelect.show();
 				$(this).css('opacity', 1); 
 				$(selectors.tagsToggle).css('opacity', .5); 
 			}
@@ -81,14 +85,17 @@ theme.collection = (function() {
 				}
 			}		
 
-			$('[data-current-sort]').text($('[data-select=' + Shopify.queryParams.sort_by + ']').text()); 
+			$sorterToggle.hide(); 
+			$sorterSelect.show(); 
+			$sorterSelect.val(Shopify.queryParams.sort_by); 
+
+		//	$('[data-current-sort]').text($('[data-select=' + Shopify.queryParams.sort_by + ']').text()); 
 
 		}
 
-		$('[href="#sort"]').on('click', function(event) {
-					event.preventDefault();
-			 		Shopify.queryParams.sort_by = $(this).data('select'); 
-			 		location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20'); 
+		$sorterSelect.on('change', function(event) {
+		 		Shopify.queryParams.sort_by = $(this).val(); 
+		 		location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20'); 
 		})
 
 	}; 
