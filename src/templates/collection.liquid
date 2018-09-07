@@ -94,21 +94,12 @@
             Sort By Newest to Oldest
           </option>
         </select>
-<!--        <div role="button" class="collection-filters__sorting__toggle" data-sorter-toggle>Sort By <span data-current-sort></span></div> -->
-<!--        <ul class="collection-filters__sorting__list"   data-sorter-list>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="manual">Featured</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="best-selling">Best Selling</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="price-ascending">Price: Low to High</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="price-descending">Price: High to Low</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="title-ascending">A-Z</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="title-descending">Z-A</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-ascending">Oldest to Newest</a></li>
-         <li><a href="#sort" class="collection-filters__sorting__option" data-select="created-descending">Newest to Oldest</a></li>
-       </ul> -->
       </div>
     </div>
   </div>
+  
 
+  {% if collection.products_count > 0 %}
   <div class="grid  grid--full  flex-grid  flex-grid--stretch  flex-grid--flex-wrap  collection__products">
     {% for product in collection.products %}
       <div class="grid__item  one-half  large-up--one-quarter">
@@ -128,7 +119,7 @@
             <div class="collection-product__info  flex-grid  flex-grid--center">
               <div class="collection-product__info__primary flex-grid  flex-grid--center  flex-grid--justify-space-between  flex-grid--flex-wrap med-flex-grid--flex-no-wrap">
                 <h2 class="collection-product__info__title">{{ product.title }}</h2>
-                <p class="collection-product__info__price">
+                <p class="collection-product__info__price {% unless product.available %} collection-product__info__price--sold-out {%endunless%}">
                   
                   {% if product.compare_at_price > product.price %}
                 
@@ -155,9 +146,6 @@
                     <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
                     {{ product.compare_at_price | money }}
                   {% endif %}
-                
-               
-                </p>
               </div>
               
 
@@ -177,6 +165,18 @@
       </div>
     {% endfor %}
   </div>
+
+  {%else%}
+
+  <div class="collection__nothing-in-stock flex-grid  flex-grid--center  flex-grid--justify-center">
+    <h1 class="collection__nothing-in-stock__title">
+      It appears we've sold out of {{current_tags}} for this collection, check back later! 
+    </h1>
+  </div>
+  {% endif %}
+
+
+
 
   {% if paginate.pages > 1 %}
     {% include 'pagination' %}

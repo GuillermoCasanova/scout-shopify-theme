@@ -5,8 +5,8 @@
 
 
 .collection-header {
-	padding-top: rem-calc($level7);
-	padding-bottom: rem-calc($level7); 
+	padding-top: rem-calc($level6);
+	padding-bottom: rem-calc($level6); 
 	position: relative;
 	border-left: 1px solid $primary-color; 
 	border-right: 1px solid $primary-color; 
@@ -48,7 +48,6 @@
 		width: 100%; 
 		height: 100%; 
 		font-weight: bold; 
-		text-transform: uppercase; 
 
 		@include media-query($medium-up) {
 			padding-left: rem-calc($level4);
@@ -175,27 +174,53 @@
 
 
 
+/*------------------------------------*\
+    #Collection Nothing Available
+\*------------------------------------*/
+
+
+.collection__nothing-in-stock {
+	min-height: rem-calc(300px);
+	border-left: 1px solid $primary-color; 
+	border-right: 1px solid $primary-color; 
+	border-bottom: 1px solid $primary-color; 
+
+	.collection__nothing-in-stock__title {
+		text-align: center; 
+		width: 90%; 
+		margin-right: auto; 
+		margin-left: auto; 
+		max-width: rem-calc(320px);
+		@include h3(); 
+
+		@include media-query($medium-up) {
+			max-width: rem-calc(480px); 
+			@include h1(); 
+		}
+
+		@include media-query($large-up) {
+			min-width: rem-calc(660px); 
+			max-width: rem-calc(660px); 
+		}
+	}
+}
+
 
 /*------------------------------------*\
     #Collection Products
 \*------------------------------------*/
 
 .collection__products {
-	
-	@include media-query($medium-up) {
+	border-left: 1px solid $primary-color; 
 
-		.grid__item:nth-child(4n+0) {
-			.collection-product {
-				border-right: 1px solid $primary-color; 
-			}
-		}
+	.collection-product {
+		border-right: 1px solid $primary-color; 
 	}
 }
 
 
 .collection-product {
 	border-bottom: 1px solid $primary-color; 
-	border-left: 1px solid $primary-color; 
 	width: 100%; 
 	height: 100%; 
 	display: block; 
@@ -305,6 +330,10 @@
 
 			@include media-query($medium-up) {
 				width: auto; 
+			}
+
+			&.collection-product__info__price--sold-out {
+				text-decoration: line-through;
 			}
 		}
 	
