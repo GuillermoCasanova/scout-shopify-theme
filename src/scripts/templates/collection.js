@@ -41,12 +41,6 @@ theme.collection = (function() {
 				$(selectors.sorterToggle).css('opacity', .5); 
 			}
 		});
-
-
-		if(location.search.length) {
-			console.log(location.search);
-		}
-
 	}; 
 
 
@@ -89,8 +83,6 @@ theme.collection = (function() {
 			$sorterSelect.show(); 
 			$sorterSelect.val(Shopify.queryParams.sort_by); 
 
-		//	$('[data-current-sort]').text($('[data-select=' + Shopify.queryParams.sort_by + ']').text()); 
-
 		}
 
 		$sorterSelect.on('change', function(event) {
@@ -105,6 +97,5 @@ theme.collection = (function() {
 		initFilters(); 
 		initSorters();
 	}
-
 
 })();

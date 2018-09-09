@@ -119,33 +119,45 @@
             <div class="collection-product__info  flex-grid  flex-grid--center">
               <div class="collection-product__info__primary flex-grid  flex-grid--center  flex-grid--justify-space-between  flex-grid--flex-wrap med-flex-grid--flex-no-wrap">
                 <h2 class="collection-product__info__title">{{ product.title }}</h2>
-                <p class="collection-product__info__price {% unless product.available %} collection-product__info__price--sold-out {%endunless%}">
-                  
+                <p class="collection-product__info__price {% if product.compare_at_price > product.price %} collection-product__info__price--on-sale{%endif%}">
+                {%if product.available %}
                   {% if product.compare_at_price > product.price %}
                 
                     {% if product.price_varies %}
+                     <span class="collection-product__info__price__sale">
                       {%- assign sale_price = product.price | money -%}
                       {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                      </span>
                     {% else %}
+                      <span class="visually-hidden">
                       {{ 'products.product.on_sale' | t }}
+                      </span>
+                     <span class="collection-product__info__price__sale">
                       {{ product.price | money }}
+                    </span>
                     {% endif %}
-                
                   {% else %}
-                
+                     <span class="collection-product__info__price__normal">
                     {% if product.price_varies %}
                       {%- assign price = product.price | money -%}
                       {{ 'products.product.from_text_html' | t: price: price }}
                     {% else %}
                       {{ product.price | money }}
                     {% endif %}
-                
+                    </span>
                   {% endif %}
                 
                   {% if product.compare_at_price > product.price %}
                     <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                     <span class="collection-product__info__price__normal">
                     {{ product.compare_at_price | money }}
+                    </span>
                   {% endif %}
+
+                {%else%}
+                  Sold out
+                {%endif%}
+                </p>
               </div>
               
 

@@ -320,6 +320,9 @@
 			@include media-query($medium-up) {
 				width: auto; 
 			}
+			@include media-query($large-up) {
+				max-width: 77%; 
+			}
 		}
 
 		.collection-product__info__price {
@@ -333,7 +336,26 @@
 			}
 
 			&.collection-product__info__price--sold-out {
-				text-decoration: line-through;
+
+				.collection-product__info__price__normal,
+				.collection-product__info__price__sale {
+					text-decoration: line-through;
+				}
+
+			}
+			
+			&.collection-product__info__price--on-sale {
+				.collection-product__info__price__normal {
+					text-decoration: line-through;
+				}
+			}
+
+			.collection-product__info__price__sale {
+				color: red; 
+			}
+
+			.collection-product__info__price__normal {
+				
 			}
 		}
 	
@@ -361,7 +383,6 @@
 				width: 1.3rem;
 				border: 1px solid $secondary-color; 
 				color: $secondary-color; 
-				border-radius: 100%; 
 				display: block;
 				margin-right: rem-calc($level1);
 				margin-bottom: rem-calc($level1);  
@@ -374,12 +395,6 @@
 					@include text-micro(); 
 				}
 
-					
-				@include media-query($large-up) {
-					height: 1.6rem;
-					width: 1.6rem;
-				}
-
 				&.collection-product__info__options__option--sold-out {
 					opacity: .3; 
 					position: relative;
@@ -388,16 +403,17 @@
 						content: " "; 
 						position: absolute;
 						width: 1px; 
-						height: 2rem; 
+						height: 1.7rem; 
 						background-color: $secondary-color; 
-    				top: -4px;
-    				left: 12px;
+    				top: -3px;
+    				left: 10px;
 					 	right: 0; 
 					 	transform: rotate(20deg);  
 
 					 	@include media-query($medium-up) {
 					 		top: -4px;
     					left: 12px;
+							height: 2rem; 
 					 	}
 					}
 				}
@@ -411,11 +427,12 @@
 
 					@include media-query($medium-up) {
 						letter-spacing: -1px;
+						bottom: -2px; 
+						@include text-micro(); 
 					}
 
 					@include media-query($large-up) {
 						bottom: -2px; 
-						@include text-micro(); 
 					}
 				}
 			}
