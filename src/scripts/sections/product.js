@@ -145,42 +145,62 @@ theme.Product = (function() {
 
       var windowWidth = window.innerWidth; 
       var resize = false; 
-      var carousel = false; 
-      var initCarousel = function() {
-        carousel = $(selectors.productImages).slick({
-          infinite: false, 
-          mobileFirst: true, 
-          responsive: [{
-              breakpoint:  641, 
-              settings: "unslick"
-          }]
-        });
+      var swiper = false; 
+
+      function toggleCarousel(pInitialize) {
+        var $slideshowContainer = $(selectors.productImages); 
+        
+        setTimeout(function() {
+          if(pInitialize) {
+
+            if(!swiper) {
+
+              $slideshowContainer.addClass('swiper-container');
+              $slideshowContainer.find('ul').addClass('swiper-wrapper');
+              $slideshowContainer.find('li').addClass('swiper-slide');
+              $slideshowContainer.append('<div class="swiper-button-prev"></div><div class="swiper-button-next"></div>');
+
+              swiper = new Swiper(selectors.productImages,{
+                speed: 400,
+                direction: 'horizontal',
+                autoHeight: true, 
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev'
+                }
+              });            
+            }
+
+          } else {
+            if(swiper) {
+              swiper.destroy(true, true);
+              swiper = false; 
+            }
+            $slideshowContainer.find('.swiper-button-prev').remove();
+            $slideshowContainer.find('.swiper-button-next').remove();
+            $slideshowContainer.removeClass('swiper-container');
+            $slideshowContainer.find('ul').removeClass('swiper-wrapper');
+            $slideshowContainer.find('li').removeClass('swiper-slide'); 
+          }
+        }, 200);
+
       }; 
 
-      if(windowWidth < 641) {
-          initCarousel(); 
+      if(windowWidth < 751) {
+          toggleCarousel(true); 
       }
-
-      var throttleResize = setInterval(function() {
-        resize = true; 
-      }, 600);
 
       $(window).on('resize', function() {
         windowWidth = window.innerWidth; 
 
-        if(resize) {
+          if($(window).width() >= 751) {
+              toggleCarousel(false);
+          } 
 
-          if(windowWidth >= 641 && carousel) {
-              carousel.slick('unslick'); 
-              carousel = false; 
-          } else {
+          if($(window).width() < 751) {
+              toggleCarousel(true);
           }
           
-        }
-
-
-        resize = false; 
-
       }); 
 
     }
