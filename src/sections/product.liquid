@@ -18,7 +18,7 @@
       <div class="grid medium-up--grid--rev">
 
         <div class="grid__item  medium-up--two-thirds">
-          <ul class="product__images">
+          <ul class="product__images" data-product-images>
             {% for image in product.images %}
               <li>
                 <a href="{{ image.src | img_url: '480x480' }}" data-product-single-thumbnail>

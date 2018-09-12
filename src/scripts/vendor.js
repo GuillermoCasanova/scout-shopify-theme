@@ -3,6 +3,7 @@
  */
 // =require vendor/modernizr.min.js
 
+
 /*!
  * jquery-3.3.1.min.js
  */
@@ -18,3 +19,11 @@
 // 2. A regular expression matches the string of the comment.
 //    For example: `MIT`, `@license`, or `Copyright`.
 // 3. There is a comment at the *previous* line, and it matches 1, 2, or 3.
+
+
+
+/*!
+ * slick-1.9.0.min.js
+ */
+// =require vendor/slick.min.js
+

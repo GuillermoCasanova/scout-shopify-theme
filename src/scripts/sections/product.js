@@ -19,7 +19,8 @@ theme.Product = (function() {
     productJson: '[data-product-json]',
     productPrice: '[data-product-price]',
     productThumbs: '[data-product-single-thumbnail]',
-    singleOptionSelector: '[data-single-option-selector]'
+    singleOptionSelector: '[data-single-option-selector]',
+    productImages: '[data-product-images]'
   };
 
   /**
@@ -61,6 +62,8 @@ theme.Product = (function() {
 
       this.$container.on('variantImageChange' + this.namespace, this.updateProductImage.bind(this));
     }
+
+    this.initCarousel(); 
   }
 
   Product.prototype = $.extend({}, Product.prototype, {
@@ -132,7 +135,56 @@ theme.Product = (function() {
      */
     onUnload: function() {
       this.$container.off(this.namespace);
+    },
+
+
+    /**
+      * Initalizes the images carousel
+      */
+    initCarousel: function() {
+
+      var windowWidth = window.innerWidth; 
+      var resize = false; 
+      var carousel = false; 
+      var initCarousel = function() {
+        carousel = $(selectors.productImages).slick({
+          infinite: false, 
+          mobileFirst: true, 
+          responsive: [{
+              breakpoint:  641, 
+              settings: "unslick"
+          }]
+        });
+      }; 
+
+      if(windowWidth < 641) {
+          initCarousel(); 
+      }
+
+      var throttleResize = setInterval(function() {
+        resize = true; 
+      }, 600);
+
+      $(window).on('resize', function() {
+        windowWidth = window.innerWidth; 
+
+        if(resize) {
+
+          if(windowWidth >= 641 && carousel) {
+              carousel.slick('unslick'); 
+              carousel = false; 
+          } else {
+          }
+          
+        }
+
+
+        resize = false; 
+
+      }); 
+
     }
+
   });
 
   return Product;
