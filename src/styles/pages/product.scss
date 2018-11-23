@@ -10,6 +10,7 @@
 
 	.product__images {
 		border-bottom: 1px solid $primary-color; 
+		margin-bottom: rem-calc($level4); 
     // max-height: 500px;
     // overflow: hidden;
 
@@ -73,19 +74,50 @@
 	}
 
 	.product__info {
-		// padding-left: rem-calc($level4); 
-		// padding-right: rem-calc($level4); 
+		padding-left: rem-calc($level4); 
+		padding-right: rem-calc($level4); 
 		
 		.product__info__title {
 			margin-bottom: rem-calc($level1); 
+			font-weight: bold; 
 			@include h2(); 
 		}
 
 		.product__info__vendor {
+			margin-bottom: rem-calc($level2);
+			@include text-micro(); 
 
+			a {
+				color: $primary-color; 
+				text-decoration: underline; 
+
+				&:hover, 
+				&:focus {
+					text-decoration: none; 
+				}
+			}
+		}
+
+		.product__info__pricing {
+			margin-bottom: rem-calc($level4); 
+			@include h3(); 
 		}
 
 	}
 
+	.product__variants {
+		width: 100%; 
+		max-width: rem-calc(420px); 
+		
+		.product__variants__variant {
+			width: 50%;
+			height: rem-calc(60px);
+			color: $primary-color; 
+
+			&.is-sold-out {
+				color: red; 
+			}
+		}
+	}
 }
 

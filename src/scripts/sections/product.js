@@ -14,6 +14,7 @@ theme.Product = (function() {
     comparePrice: '[data-compare-price]',
     comparePriceText: '[data-compare-text]',
     originalSelectorId: '[data-product-select]',
+    optionSelector: '[data-option-selector]',
     priceWrapper: '[data-price-wrapper]',
     productFeaturedImage: '[data-product-featured-image]',
     productJson: '[data-product-json]',
@@ -64,6 +65,17 @@ theme.Product = (function() {
     }
 
     this.initCarousel(); 
+
+    this.$optionSelector = $(selectors.optionSelector);
+
+    this.$optionSelector.change(function() {
+      var optionValue = $(this).val();
+      $(this)
+        .closest('form')
+        .find('[data-single-option-selector]')
+        .val(optionValue)
+        .trigger('change');
+    });
   }
 
   Product.prototype = $.extend({}, Product.prototype, {

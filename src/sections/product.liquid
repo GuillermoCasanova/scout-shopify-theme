@@ -43,28 +43,54 @@
                   <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
                     
                   <form action="/cart/add" method="post" enctype="multipart/form-data">
-                    {% unless product.has_only_default_variant %}
-                      {% for option in product.options_with_values %}
-                        <div class="selector-wrapper js">
-                          <label for="SingleOptionSelector-{{ forloop.index0 }}">
-                            {{ option.name }}
-                          </label>
+                       {% unless product.has_only_default_variant %}
+                            {% for option in product.options_with_values %}
+                              <div class="selector-wrapper js">
+                                <div class="visually-hidden">
+                                  <label for="SingleOptionSelector-{{ forloop.index0 }}">
+                                    {{ option.name }}
+                                  </label>
+                                                    
+                                  <select
+                                    id="SingleOptionSelector-{{ forloop.index0 }}"
+                                    data-single-option-selector
+                                    data-index="option{{ option.position }}">
+                                    {% for value in option.values %}
+                                      <option
+                                        value="{{ value | escape }}"
+                                        {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                          {{ value }}
+                                      </option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
                     
-                          <select
-                            id="SingleOptionSelector-{{ forloop.index0 }}"
-                            data-single-option-selector
-                            data-index="option{{ option.position }}">
-                            {% for value in option.values %}
-                              <option
-                                value="{{ value | escape }}"
-                                {% if option.selected_value == value %}selected="selected"{% endif %}>
-                                  {{ value }}
-                              </option>
+                                <div class="product__options  flex-grid">
+
+                                  {%for value in option.values %}
+                                    {% assign variant_label_state = true %}
+
+                                    {% unless product.variants[forloop.index0].available  %}
+                                      {% assign variant_label_state = false %}
+                                    {% endunless %}
+
+                                    <div class="product__options__option  flex-grid-cell {% unless variant_label_state %} is-sold-out {% endunless %}">
+                                        <input 
+                                          type="radio" 
+                                          name="{{option.name}}" 
+                                          data-option-selector
+                                          data-option-index="option{{option.position}}"
+                                          value="{{ value | escape }}"
+                                          id="{{option.name | handleize}}-{{value | escape | handleize}}">
+                                        <label for="{{option.name | handleize}}-{{value | escape | handleize}}" class="{{option.name | downcase}}  flex-grid  flex-grid--center flex-grid--justify-center">
+                                          {{value}}
+                                        </label>
+                                    </div>
+                                  {%endfor%}
+                                </div>
+                              </div>
                             {% endfor %}
-                          </select>
-                        </div>
-                      {% endfor %}
-                    {% endunless %}
+                          {% endunless %}
                     
                     <select name="id" class="no-js" data-product-select>
                       {% for variant in product.variants %}
